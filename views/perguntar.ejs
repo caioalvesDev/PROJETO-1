@@ -1,0 +1,44 @@
+<%- include ('partials/header.ejs') %>
+<body>
+    <%- include ('partials/navbar.ejs')%>
+    <div class="container">
+        <% if(create == 'true'){ %>
+            <%- include ('partials/sucesso.ejs') %>
+        <% } %>
+        <% if(create == 'false'){ %>
+            <%- include ('partials/error.ejs') %>
+        <% } %>
+        <div class="card">
+            <div class="card-header">
+                <h3>Realizar pergunta</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/salvarpergunta" onsubmit="confirme(event, this)">
+                    <div class="form-floating mb-3">
+                        <input name="titulo" type="text" class="form-control" placeholder="Título" >
+                        <label for="Título">Título da Pergunta</label>
+                    </div>
+                  <div class="form-floating">
+                      <textarea class="form-control" name="descricao"  style="height: 150px" placeholder="Descreva sua pergunta aqui" ></textarea>
+                      <label for="">Digite uma Descrição</label>
+                  </div>
+                    <button class="btn btn-dark mt-3">perguntar</button>
+                </form>
+            </div>
+        </div>     
+    </div>
+</body>
+<script>
+  function confirme (event, form) {
+        // event.preventDefault();
+        // console.log('evento prevenido');
+        // console.log(form);
+        // console.log(event);
+        // let confirmar = confirm('Gostaria de enviar?')
+        // if (confirmar) {
+        //     form.submit()
+        // }
+  }
+</script>
+<%-include('partials/footer.ejs')%>
+
