@@ -22,22 +22,41 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json())
 
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
 
-    Pergunta.findAll({ raw: true, order: [
-        ['id', 'DESC']
-    ] }).then((perguntas) => {
-        console.log(perguntas);
-        Resposta.count({
-            where:{perguntaId: 51}
-        }).then((count) =>{
-            console.log(count);
-            res.render('index',{
-                perguntas: perguntas,
-                count: count
-            })
-        })
+    // Pergunta.findAll({ raw: true, order: [
+    //     ['id', 'DESC']
+    // ] }).then((perguntas) => {
+    //     console.log(perguntas);
+    //     Resposta.count({
+    //         where:{perguntaId: 51}
+    //     }).then((count) =>{
+    //         console.log(count);
+    //         res.render('index',{
+    //             perguntas: perguntas,
+    //             count: count
+    //         })
+    //     })
       
+    // })
+
+    const perguntas = await Pergunta.findAll({
+        raw: true, 
+        order:[
+            ['id', 'DESC']
+        ]
+    });
+
+    const perguntaUser = await Pergunta.findAll({includes: Pergunta})
+    // const respostaUser = await Resposta.findAll({where: {perguntaId: perguntaUser.id }})
+    // const count = await respostaUser.count(id)
+
+    console.log(perguntaUser);
+    // console.log(count);
+
+    res.render('index',{
+        perguntas: perguntas,
+        count: 1
     })
    
 });
